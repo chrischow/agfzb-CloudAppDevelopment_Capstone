@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
-# from .models import related models
+from .models import CarModel, CarMake
 from .restapis import get_dealers_from_cf, get_dealer_reviews_from_cf
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
@@ -83,9 +83,12 @@ def get_dealerships(request):
         # Get dealers from the URL
         dealerships = get_dealers_from_cf(url)
         # Concat all dealer's short name
-        dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
-        # Return a list of dealer short name
-        return HttpResponse(dealer_names)
+        # dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
+        # Create context
+        context = {}
+        context['dealership_list'] = dealerships
+        # Render
+        return render(request, 'djangoapp/index.html', context)
 
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
@@ -95,25 +98,48 @@ def get_dealer_details(request, dealer_id):
         # Get reviews from the URL
         reviews = get_dealer_reviews_from_cf(url, dealer_id)
         # Concat all reviews
-        review_texts = '\n'.join([f'{review.review} - {review.sentiment}' for review in reviews])
-        # Return a list of dealer short name
-        return HttpResponse(review_texts)
+        # review_texts = '\n'.join([f'{review.review} - {review.sentiment}' for review in reviews])
+        # Create context
+        context = {}
+        context['dealership_reviews'] = reviews
+        context['dealer_id'] = dealer_id
+        # Render
+        return render(request, 'djangoapp/dealer_details.html', context)
 
 # Create a `add_review` view to submit a review
 def add_review(request, dealer_id):
+    if request.method == 'GET':
+        cars = CarModel.objects.filter(dealer_id__exact=dealer_id)
+        context = dict(cars=cars)
+        context['dealer_id'] = dealer_id
+        return render(request, 'djangoapp/add_review.html', context)
     if request.method == "POST":
         if request.user.is_authenticated:
             review = dict()
+            print(request.POST)
             review['time'] = datetime.utcnow().isoformat()
             review['dealership'] = dealer_id
-            review['review'] = request.POST.review
-            review['car_make'] = request.POST.car_make
-            review['car_model'] = request.POST.car_model
-            review['car_year'] = request.POST.car_year
+            review['review'] = request.POST['review']
+            
+            if 'purchase' in request.POST:
+                if request.POST['purchase'] == 'true':
+                    review['purchase'] = True
+                else:
+                    review['purchase'] = False
+            else:
+                review['purchase'] = False
+                
+            review['purchase_date'] = request.POST['purchase_date']
+            car_id = int(request.POST['car'])
+            car_details = CarModel.objects.filter(id=car_id)
+
+            review['car_make'] = car_details.car_make.make_name
+            review['car_model'] = car_details.car_model
+            review['car_year'] = car_details.model_year
             
             # Configure POST request parameters
             url = "https://8a246c27.us-south.apigw.appdomain.cloud/api/review"
             json_payload['review'] = review
             result = post_request(url, json_payload, dealerId=dealer_id)
-            return result
+            return redirect('djangoapp:dealer_details', dealer_id=dealer_id)
 

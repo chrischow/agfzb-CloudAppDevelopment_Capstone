@@ -19,7 +19,7 @@ async function main(params) {
     
     const query = {
       "selector": selector,
-      "fields": [ "id", "city", "state", "st", "address", "zip", "lat", "long" ]
+      "fields": [ "id", "city", "state", "st", "address", "zip", "lat", "long", "short_name", "full_name" ]
     };
     
     try {

@@ -98,6 +98,8 @@ def get_dealer_reviews_from_cf(url, dealerId, **kwargs):
                 dealership = review.get("dealership", ""),
                 name = review.get("name", ""),
                 review = review.get("review", ""),
+                purchase = review.get('purchase', False),
+                purchase_date = review.get("purchase_date", ""),
                 car_make = review.get("car_make", ""),
                 car_model = review.get("car_model", ""),
                 car_year = review.get("car_year", ""),
