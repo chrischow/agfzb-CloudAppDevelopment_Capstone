@@ -42,13 +42,17 @@ def get_request(url, **kwargs):
 def post_request(url, json_payload, **kwargs):
     print("POST to {} ".format(url))
     try:
-        response = requests.post(url, params=kwargs, json=json_payload)
+        response = requests.post(
+            url, params=kwargs, json=json_payload,
+            headers={'Content-Type': 'application/json'}
+        )
     except:
         # If any error occurs
         print("Network exception occurred")
         raise ValueError("Network exception occurred.")
     status_code = response.status_code
     print("With status {} ".format(status_code))
+    return response.content
 
 # Create a get_dealers_from_cf method to get dealers from a cloud function
 # def get_dealers_from_cf(url, **kwargs):
@@ -78,6 +82,35 @@ def get_dealers_from_cf(url, **kwargs):
 
     return results
 
+# Get dealer by ID
+def get_dealer_by_id(url, dealerId, **kwargs):
+    results = []
+    # Call get_request with a URL parameter
+    json_result = get_request(url)
+    if json_result:
+        # Get the row list in JSON as dealers
+        dealers = json_result["dealerships"]
+        # For each dealer object
+        for dealer in dealers:
+            dealer_id = dealer.get("id", -1)
+            if dealer_id == dealerId:
+                # Create a CarDealer object with values in `doc` object
+                dealer_obj = CarDealer(
+                    address = dealer.get("address", ""),
+                    city = dealer.get("city", ""),
+                    full_name = dealer.get("full_name", ""),
+                    id = dealer.get("id", ""),
+                    lat = dealer.get("lat", ""),
+                    long = dealer.get("long", ""),
+                    short_name = dealer.get("short_name", ""),
+                    st=dealer.get("st", ""),
+                    zip = dealer.get("zip", ""))
+                results.append(dealer_obj)
+    if len(results) > 0:
+        return results[0]
+    else:
+        return
+
 # Create a get_dealer_reviews_from_cf method to get reviews by dealer id from a cloud function
 # def get_dealer_reviews_from_cf(url, dealerId):
 # - Call get_request() with specified arguments
@@ -96,7 +129,7 @@ def get_dealer_reviews_from_cf(url, dealerId, **kwargs):
             review_obj = DealerReview(
                 # dealership, name, review, car_make, car_model, car_year, sentiment, id
                 dealership = review.get("dealership", ""),
-                name = review.get("name", ""),
+                reviewer_name = review.get("name", ""),
                 review = review.get("review", ""),
                 purchase = review.get('purchase', False),
                 purchase_date = review.get("purchase_date", ""),
@@ -125,4 +158,8 @@ def analyze_review_sentiments(dealerreview):
         features='sentiment',
         return_analyzed_text=False
     )
+    if 'code' in result.keys():
+        if result['code'] == 422:
+            return 'neutral'
+    
     return result['sentiment']['document']['label']
