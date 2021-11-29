@@ -29,7 +29,8 @@ APPEND_SLASH = True
 
 ALLOWED_HOSTS = [
     "localhost",
-    "chrischow.us-south.cf.appdomain.cloud"
+    "chrischow.us-south.cf.appdomain.cloud",
+    "chrischow.mybluemix.net"
 ]
 
 
