@@ -19,12 +19,23 @@
     margin-bottom: 40px;
 }
 
-.about-card-col{
+.about-card-col {
     margin-bottom: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 .about-card {
     padding: 30px 30px;
+    box-shadow: 1px 3px 5px rgba(33, 33, 33, 0.2);
+    transition: 0.3s;
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.contact-card {
+    padding: 10px 30px;
     box-shadow: 1px 3px 5px rgba(33, 33, 33, 0.2);
     transition: 0.3s;
     position: relative;

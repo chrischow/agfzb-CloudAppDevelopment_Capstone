@@ -120,6 +120,11 @@ def get_dealer_reviews_from_cf(url, dealerId, **kwargs):
     # Call get_request with a URL parameter
     json_result = get_request(url, dealerId=dealerId)
     if json_result:
+        if json_result['code']:
+            if json_result['code'] == 404:
+                print('dealerId does not exist.')
+                return []
+        
         # Get the row list in JSON as reviews
         reviews = json_result["data"]
         # For each review object
