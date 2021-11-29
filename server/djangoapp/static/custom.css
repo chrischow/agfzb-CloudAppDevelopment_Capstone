@@ -1,0 +1,33 @@
+.h1 {
+    font-size: 4rem!important;
+    font-family: Poppins;
+    font-weight: 800!important;
+    letter-spacing: 3px!important;
+}
+
+.subtitle {
+    font-size:1.3rem;
+    font-family: "Roboto Mono"
+}
+
+.page-title {
+    margin-top: 50px;
+    margin-bottom: 40px;
+}
+
+.table-title {
+    margin-bottom: 40px;
+}
+
+.about-card-col{
+    margin-bottom: 20px;
+}
+
+.about-card {
+    padding: 30px 30px;
+    box-shadow: 1px 3px 5px rgba(33, 33, 33, 0.2);
+    transition: 0.3s;
+    position: relative;
+    height: 100%;
+    width: 100%;
+}

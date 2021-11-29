@@ -1,1 +1,12 @@
 web: gunicorn djangobackend.wsgi
+applications:
+  - name: dealership
+    routes:
+      - route: chrischow.mybluemix.net
+    memory: 128M
+    buildpack: python_buildpack
+  - name: dealership-nginx
+    routes:
+      - route: chrischow.mybluemix.net/static
+    memory: 128M
+    buildpack: staticfile_buildpack

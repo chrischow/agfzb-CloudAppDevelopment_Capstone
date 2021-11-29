@@ -155,4 +155,3 @@ def add_review(request, dealer_id):
             result = post_request(url=url, json_payload=review)
             print(result)
             return redirect('djangoapp:dealer_details', dealer_id=dealer_id)
-
