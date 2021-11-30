@@ -152,12 +152,18 @@ def get_dealer_reviews_from_cf(url, dealerId, **kwargs):
 # def analyze_review_sentiments(text):
 # - Call get_request() with specified arguments
 # - Get the returned sentiment label such as Positive or Negative
+from cfenv import AppEnv
+env = AppEnv()
+nlu = env.get_service(label='natural-language-understanding')
+
+nlu_creds = nlu.credentials
+nlu_apikey = nlu_creds['apikey']
+nlu_url = nlu_creds['url'] + '/v1/analyze'
 
 def analyze_review_sentiments(dealerreview):
-    url='https://api.us-south.natural-language-understanding.watson.cloud.ibm.com/instances/b21bfe62-2da5-41a2-a7f9-76861cbe1b2e/v1/analyze'
     result = get_request(
-        url,
-        api_key='owQIfbc3R7T5rKRgTj-Zcd0UMnPDH8erE0mN1sAq7oWq',
+        nlu_url,
+        api_key=nlu_apikey,
         text=dealerreview,
         version='2021-08-01',
         features='sentiment',
