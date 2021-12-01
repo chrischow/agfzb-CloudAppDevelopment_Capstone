@@ -9,15 +9,11 @@ I submitted my capstone project in the early morning (GMT+8) on 30 Nov 2021. The
 ### 2. Grading by User
 I received an email notification that my assignment was graded at 2:22 AM on 30 Nov 2021. Upon checking Coursera, I identified the grader as **Tanner Cunningham**. See the screenshots below.
 
-<figure>
-<img src="01-feedback-email.jpg" style="width: 100%;">
-  <figcaption align="center">Test</figcaption>
-</figure>
+![](01-feedback-email.jpg)
+*Feedback email*
 
-<figure>
-<img src="02-feedback-comment.jpg" style="width: 100%;">
-  <figcaption align="center">Test</figcaption>
-</figure>
+![](02-feedback-comment.jpg)
+*Feedback comment from plagiariser*
 
 ### 3. Discovery of Plagiarised Content
 Later that evening, I proceeded to review other users' submissions and found Cunningham's submission. I was appalled to see that he had copied my work and submitted it as his own. He had not even bothered to change the content or fix the styling errors. I flagged the submission for plagiarism, and it was taken offline.
