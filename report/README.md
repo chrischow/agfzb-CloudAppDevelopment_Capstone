@@ -1,6 +1,24 @@
 # Plagiarism Report
 This document details an act of blatant plagiarism by another course participant for the Full Stack Cloud Development capstone project.
 
+## Updates
+
+### 12 Dec 2021
+The plagiariser has since changed some of the front-end elements. Of course, the reference to external stylesheets and overall structure of the templates remains the same.
+
+The plagiariser **has not changed the backend code**. This includes the following code:
+
+- admin.py
+- models.py
+- restapis.py
+- urls.py
+- views.py - the only change was the switch of API URLs to *another learner's* API URLs i.e. still plagiarism
+
+For comparison:
+
+- My repository at the time of submission: [link](https://github.com/chrischow/agfzb-CloudAppDevelopment_Capstone/tree/15cc54554302734ea16cbbc30935da5480c8260a)
+- Plagiariser's repository: [link](https://github.com/tcunningham98/agfzb-CloudAppDevelopment_Capstone/tree/master/server/djangoapp)
+
 ## Sequence of Events
 
 ### 1. My Submission
@@ -31,7 +49,7 @@ Plagiariser's Contact page:
 To check if the plagiariser was indeed leeching off the services I created in IBM Cloud (Cloud Functions API and Natural Language Understanding (NLU)), I turned off my API and NLU services, and his app failed.
 
 ### 4. Continued Plagiarism
-The following day (1 Dec 2021), the plagiariser simply switched his Cloud Functions API URLs to yet another user's API URLs:
+The following day (1 Dec 2021), the plagiariser simply switched his Cloud Functions API URLs to yet another learner's API URLs:
 
 - Victim of plagiarism: [Submission](https://www.coursera.org/learn/ibm-cloud-native-full-stack-development-capstone/peer/QgVg5/submit-your-work-grade-your-peers/review/IuJvyFEZEeyIxA7f-ebEew) (accessible to course admins and participants only)
 - Plagiariser's `views.py` file: [Link](https://github.com/tcunningham98/agfzb-CloudAppDevelopment_Capstone/blob/461b61c13a11adecfe224146470134a7e09bfb81/server/djangoapp/views.py)
